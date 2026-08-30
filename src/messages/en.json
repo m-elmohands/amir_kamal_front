@@ -9,6 +9,13 @@
     "axisSelect": "Axis Select",
     "dataRefreshFailed": "Live data could not be refreshed. Showing the last available version."
   },
+  "availability": {
+    "in_stock": "In stock",
+    "low_stock": "Low stock",
+    "made_to_order": "Made to order",
+    "out_of_stock": "Currently unavailable",
+    "days": "day lead time"
+  },
   "header": {
     "tagline": "Industrial tooling, delivered with confidence.",
     "talk": "Talk to an expert:",
@@ -43,6 +50,23 @@
     "featuredEyebrow": "Featured tooling",
     "featuredTitle": "Shop-floor favorites.",
     "viewCatalog": "View full catalog",
+    "processEyebrow": "A quote that starts with the application",
+    "processTitle": "From requirement to reliable supply.",
+    "processIntro": "A clear commercial path keeps technical questions, availability, and follow-up connected.",
+    "processSteps": [
+      {
+        "title": "Share the application",
+        "text": "Tell us the machine, material, operation, and required quantity."
+      },
+      {
+        "title": "Validate the fit",
+        "text": "We confirm the tooling choice, availability, and realistic lead time."
+      },
+      {
+        "title": "Receive a clear quote",
+        "text": "Your quote arrives with the right product, terms, and next step."
+      }
+    ],
     "partnerEyebrow": "More than a supplier",
     "partnerTitle": "Partners in productivity.",
     "partnerText": "Good tooling is only the beginning. We help workshops reduce downtime, improve tool life, and choose the right setup the first time.",
@@ -73,7 +97,8 @@
     "quote": "Request a quote",
     "fitTitle": "Not sure this is the right fit?",
     "fitText": "Tell us about your machine, material, and operation.",
-    "askExpert": "Ask an application expert"
+    "askExpert": "Ask an application expert",
+    "askAlternative": "Ask about an alternative"
   },
   "contact": {
     "eyebrow": "Contact & quotes",
@@ -90,6 +115,11 @@
     "emailAddress": "Email address",
     "phoneNumber": "Phone number",
     "subject": "Subject",
+    "applicationDetails": "Application details",
+    "applicationHint": "Optional details help us prepare a more accurate recommendation and quote.",
+    "quantity": "Required quantity",
+    "machine": "Machine make / model",
+    "material": "Workpiece material",
     "help": "How can we help?",
     "messagePlaceholder": "Tell us about the machine, material, operation, or part number…",
     "send": "Send inquiry",

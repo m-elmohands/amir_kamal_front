@@ -53,6 +53,26 @@ export default async function Home({ params }: { params: Promise<{ locale: Local
         </div>
       </section>
       <HomeCatalog categories={categories} products={allProducts} locale={locale} messages={t} />
+      <section className="section process-section">
+        <div className="container">
+          <div className="section-head">
+            <div>
+              <div className="eyebrow">{t.home.processEyebrow}</div>
+              <h2>{t.home.processTitle}</h2>
+            </div>
+            <p>{t.home.processIntro}</p>
+          </div>
+          <ol className="process-grid">
+            {t.home.processSteps.map((step, index) => (
+              <li key={step.title}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <h3>{step.title}</h3>
+                <p>{step.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
       <section className="section band">
         <div className="container band-grid">
           <div>

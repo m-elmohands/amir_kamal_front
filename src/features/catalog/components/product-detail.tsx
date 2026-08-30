@@ -19,6 +19,13 @@ export function ProductDetail({
 }) {
   const [product, setProduct] = useState(initialProduct);
   const [refreshFailed, setRefreshFailed] = useState(false);
+  const availability = product.availability ?? {
+    status: "in_stock" as const,
+    stock_quantity: null,
+    minimum_order_quantity: 1,
+    lead_time_days: null,
+    can_request_quote: true,
+  };
 
   useEffect(() => {
     let active = true;
@@ -57,6 +64,12 @@ export function ProductDetail({
             <div className="eyebrow">
               {product.brand?.name ?? t.common.axisSelect} · {product.sku}
             </div>
+            <div className={`availability availability-${availability.status}`}>
+              {t.availability[availability.status]}
+              {availability.lead_time_days !== null
+                ? ` · ${availability.lead_time_days} ${t.availability.days}`
+                : ""}
+            </div>
             <h1>{product.name}</h1>
             <p>{product.description}</p>
             <div className="specs">
@@ -67,12 +80,18 @@ export function ProductDetail({
                 </div>
               ))}
             </div>
-            <Link
-              className="button"
-              href={`${localizedPath(locale, "/contact")}?product=${product.id}&subject=${encodeURIComponent(`Quote: ${product.name}`)}`}
-            >
-              {t.product.quote} <Arrow />
-            </Link>
+            {availability.can_request_quote ? (
+              <Link
+                className="button"
+                href={`${localizedPath(locale, "/contact")}?product=${product.id}&subject=${encodeURIComponent(`${t.product.quote}: ${product.name}`)}`}
+              >
+                {t.product.quote} <Arrow />
+              </Link>
+            ) : (
+              <Link className="button dark" href={localizedPath(locale, "/contact")}>
+                {t.product.askAlternative}
+              </Link>
+            )}
           </div>
         </div>
       </section>

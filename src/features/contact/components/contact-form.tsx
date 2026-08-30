@@ -16,7 +16,9 @@ export function ContactForm({ messages: t }: { messages: Messages["contact"] }) 
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus({ kind: "loading" });
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+
     try {
       const message = await sendInquiry({
         product_id: productId,
@@ -24,11 +26,17 @@ export function ContactForm({ messages: t }: { messages: Messages["contact"] }) 
         company: String(form.get("company")),
         email: String(form.get("email")),
         phone: String(form.get("phone")),
+        requested_quantity: form.get("requested_quantity")
+          ? Number(form.get("requested_quantity"))
+          : undefined,
+        machine_model: String(form.get("machine_model")),
+        material: String(form.get("material")),
         subject: String(form.get("subject")),
         message: String(form.get("message")),
       });
+
+      formElement.reset();
       setStatus({ kind: "success", message });
-      event.currentTarget.reset();
     } catch (error) {
       const message =
         error instanceof ApiError && error.status === 422
@@ -75,6 +83,24 @@ export function ContactForm({ messages: t }: { messages: Messages["contact"] }) 
         {t.subject}
         <input required name="subject" defaultValue={initialSubject} />
       </label>
+      <fieldset className="application-fields">
+        <legend>{t.applicationDetails}</legend>
+        <p>{t.applicationHint}</p>
+        <div className="two">
+          <label>
+            {t.quantity}
+            <input type="number" min="1" name="requested_quantity" inputMode="numeric" />
+          </label>
+          <label>
+            {t.machine}
+            <input name="machine_model" />
+          </label>
+        </div>
+        <label>
+          {t.material}
+          <input name="material" />
+        </label>
+      </fieldset>
       <label>
         {t.help}
         <textarea
