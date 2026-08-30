@@ -1,10 +1,9 @@
 import Link from "next/link";
-import { getCurrentLocale, getMessages, localizedPath } from "@/i18n/messages";
+import { getMessages, localizedPath, type Locale } from "@/i18n/messages";
 import { LanguageSwitcher } from "./language-switcher";
 import type { SiteSettings } from "@/types/settings";
 
-export async function SiteHeader({ settings }: { settings: SiteSettings }) {
-  const locale = await getCurrentLocale();
+export function SiteHeader({ settings, locale }: { settings: SiteSettings; locale: Locale }) {
   const t = getMessages(locale);
   return (
     <>
@@ -19,11 +18,7 @@ export async function SiteHeader({ settings }: { settings: SiteSettings }) {
       </div>
       <header className="header">
         <div className="container header-inner">
-          <Link
-            href={localizedPath(locale, "/")}
-            className="logo"
-            aria-label="Axis Industrial home"
-          >
+          <Link href={localizedPath(locale, "/")} className="logo" aria-label={settings.site_name}>
             {settings.logo_url ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={settings.logo_url} alt={settings.site_name} />

@@ -1,9 +1,17 @@
 import Link from "next/link";
 import type { Product } from "@/types/catalog";
 import { Arrow } from "./icons";
-import { getCurrentLocale, getMessages, localizedPath } from "@/i18n/messages";
-export async function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
-  const locale = await getCurrentLocale();
+import { getMessages, localizedPath, type Locale } from "@/i18n/messages";
+
+export function ProductCard({
+  product,
+  locale,
+  index = 0,
+}: {
+  product: Product;
+  locale: Locale;
+  index?: number;
+}) {
   const t = getMessages(locale);
   return (
     <article className="product-card">

@@ -48,6 +48,60 @@ export async function getProduct(slug: string, locale = "en"): Promise<Product |
     return fallbackProducts.find((product) => product.slug === slug) ?? null;
   }
 }
+
+export async function getAllProductSlugs(): Promise<string[]> {
+  const products = await getAllProducts("en");
+
+  return [...new Set(products.map((product) => product.slug))];
+}
+
+export async function getAllProducts(locale: "en" | "ar"): Promise<Product[]> {
+  try {
+    const firstPage = await request<PaginatedProducts>(
+      `/products?locale=${locale}&per_page=48&page=1`,
+    );
+    const products = [...firstPage.data];
+
+    for (let page = 2; page <= firstPage.meta.last_page; page += 1) {
+      const result = await request<PaginatedProducts>(
+        `/products?locale=${locale}&per_page=48&page=${page}`,
+      );
+      products.push(...result.data);
+    }
+
+    return products;
+  } catch {
+    return fallbackProducts;
+  }
+}
+
+export async function fetchLiveProducts(locale: "en" | "ar"): Promise<Product[]> {
+  const firstPage = await request<PaginatedProducts>(
+    `/products?locale=${locale}&per_page=48&page=1`,
+    { cache: "no-store" },
+  );
+  const products = [...firstPage.data];
+
+  for (let page = 2; page <= firstPage.meta.last_page; page += 1) {
+    const result = await request<PaginatedProducts>(
+      `/products?locale=${locale}&per_page=48&page=${page}`,
+      { cache: "no-store" },
+    );
+    products.push(...result.data);
+  }
+
+  return products;
+}
+
+export async function fetchLiveCategories(locale: "en" | "ar"): Promise<Category[]> {
+  const result = await request<{ data?: { categories?: unknown } }>(
+    `/catalog/filters?locale=${locale}`,
+    { cache: "no-store" },
+  );
+
+  return Array.isArray(result.data?.categories) ? (result.data.categories as Category[]) : [];
+}
+
 export async function getCategories(locale = "en"): Promise<Category[]> {
   try {
     const result = await request<{ data?: { categories?: unknown } }>(
@@ -107,11 +161,25 @@ const fallbackSettings: Record<"en" | "ar", SiteSettings> = {
 
 export const getSiteSettings = cache(async (locale: "en" | "ar"): Promise<SiteSettings> => {
   try {
-    const result = await request<{ data: SiteSettings }>(`/settings?locale=${locale}`, {
-      cache: "no-store",
-    });
+    const result = await request<{ data: SiteSettings }>(`/settings?locale=${locale}`);
     return result.data;
   } catch {
     return fallbackSettings[locale];
   }
 });
+
+export async function fetchLiveSiteSettings(locale: "en" | "ar"): Promise<SiteSettings> {
+  const result = await request<{ data: SiteSettings }>(`/settings?locale=${locale}`, {
+    cache: "no-store",
+  });
+
+  return result.data;
+}
+
+export async function fetchLiveProduct(slug: string, locale: "en" | "ar"): Promise<Product> {
+  const result = await request<{ data: Product }>(`/products/${slug}?locale=${locale}`, {
+    cache: "no-store",
+  });
+
+  return result.data;
+}

@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { Arrow, Icon } from "@/components/icons";
-import { ProductCard } from "@/components/product-card";
 import { AnimatedStats } from "@/features/home/components/animated-stats";
+import { HomeCatalog } from "@/features/home/components/home-catalog";
 import { getCategories, getProducts } from "@/services/api";
-import { getCurrentLocale, getMessages, localizedPath } from "@/i18n/messages";
-export default async function Home() {
-  const locale = await getCurrentLocale();
+import { getMessages, localizedPath, type Locale } from "@/i18n/messages";
+
+export default async function Home({ params }: { params: Promise<{ locale: Locale }> }) {
+  const { locale } = await params;
   const t = getMessages(locale);
   const [{ data: allProducts }, categories] = await Promise.all([
     getProducts({ locale }),
     getCategories(locale),
   ]);
-  const featured = allProducts.filter((p) => p.is_featured).slice(0, 3);
   return (
     <>
       <section className="hero">
@@ -52,48 +52,7 @@ export default async function Home() {
           ))}
         </div>
       </section>
-      <section className="section">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <div className="eyebrow">{t.home.categoryEyebrow}</div>
-              <h2>{t.home.categoryTitle}</h2>
-            </div>
-            <p>{t.home.categoryIntro}</p>
-          </div>
-          <div className="category-grid">
-            {categories.slice(0, 4).map((category, index) => (
-              <Link
-                href={`${localizedPath(locale, "/products")}?category=${category.slug}`}
-                className="category-card"
-                key={category.slug}
-              >
-                <span>0{index + 1}</span>
-                <h3>{category.name}</h3>
-                <p>{category.description}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="section soft-section">
-        <div className="container">
-          <div className="section-head">
-            <div>
-              <div className="eyebrow">{t.home.featuredEyebrow}</div>
-              <h2>{t.home.featuredTitle}</h2>
-            </div>
-            <Link className="text-link" href={localizedPath(locale, "/products")}>
-              {t.home.viewCatalog} <Arrow />
-            </Link>
-          </div>
-          <div className="products-grid">
-            {featured.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeCatalog categories={categories} products={allProducts} locale={locale} messages={t} />
       <section className="section band">
         <div className="container band-grid">
           <div>

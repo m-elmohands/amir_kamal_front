@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaWhatsapp, FaYoutube } from "react-icons/fa6";
-import { getCurrentLocale, getMessages, localizedPath } from "@/i18n/messages";
+import { getMessages, localizedPath, type Locale } from "@/i18n/messages";
 import type { SiteSettings } from "@/types/settings";
 
 const socialNetworks = ["facebook", "instagram", "linkedin", "youtube"] as const;
@@ -12,8 +12,7 @@ const socialIcons = {
   youtube: FaYoutube,
 } satisfies Record<(typeof socialNetworks)[number], typeof FaFacebookF>;
 
-export async function SiteFooter({ settings }: { settings: SiteSettings }) {
-  const locale = await getCurrentLocale();
+export function SiteFooter({ settings, locale }: { settings: SiteSettings; locale: Locale }) {
   const t = getMessages(locale);
   return (
     <footer>

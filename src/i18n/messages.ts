@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import en from "@/messages/en.json";
 import ar from "@/messages/ar.json";
 
@@ -9,11 +8,6 @@ const dictionaries: Record<Locale, Messages> = { en, ar };
 
 export function isLocale(value: string | undefined): value is Locale {
   return locales.includes(value as Locale);
-}
-
-export async function getCurrentLocale(): Promise<Locale> {
-  const value = (await headers()).get("x-locale") ?? undefined;
-  return isLocale(value) ? value : "en";
 }
 
 export function getMessages(locale: Locale): Messages {

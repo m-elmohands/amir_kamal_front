@@ -842,6 +842,25 @@ footer {
   font-size: 18px;
 }
 
+.language-landing-actions {
+  justify-content: center;
+  margin-top: var(--space-4);
+}
+
+.data-refresh-toast {
+  position: fixed;
+  inset-inline-end: var(--space-3);
+  inset-block-end: var(--space-3);
+  z-index: 100;
+  max-width: min(360px, calc(100vw - 32px));
+  padding: 12px 16px;
+  border: 1px solid var(--secondary);
+  background: var(--ink);
+  color: white;
+  box-shadow: 0 14px 36px rgb(33 31 29 / 24%);
+  font-size: 13px;
+}
+
 /* Motion system */
 @keyframes fade-up {
   from {

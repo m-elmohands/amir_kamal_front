@@ -1,12 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getCurrentLocale, getMessages, localizedPath } from "@/i18n/messages";
-export async function generateMetadata(): Promise<Metadata> {
-  const locale = await getCurrentLocale();
+import { getMessages, localizedPath, type Locale } from "@/i18n/messages";
+
+interface AboutPageProps {
+  params: Promise<{ locale: Locale }>;
+}
+
+export async function generateMetadata({ params }: AboutPageProps): Promise<Metadata> {
+  const { locale } = await params;
   return { title: locale === "ar" ? "من نحن" : "About" };
 }
-export default async function About() {
-  const locale = await getCurrentLocale();
+
+export default async function About({ params }: AboutPageProps) {
+  const { locale } = await params;
   const t = getMessages(locale).aboutPage;
   return (
     <>

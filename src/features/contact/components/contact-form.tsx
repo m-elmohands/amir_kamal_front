@@ -1,16 +1,14 @@
 "use client";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { sendInquiry } from "@/services/api";
 import type { Messages } from "@/i18n/messages";
-export function ContactForm({
-  productId,
-  initialSubject,
-  messages: t,
-}: {
-  productId?: number;
-  initialSubject?: string;
-  messages: Messages["contact"];
-}) {
+export function ContactForm({ messages: t }: { messages: Messages["contact"] }) {
+  const searchParams = useSearchParams();
+  const productParam = searchParams.get("product");
+  const parsedProductId = productParam ? Number(productParam) : undefined;
+  const productId = Number.isInteger(parsedProductId) ? parsedProductId : undefined;
+  const initialSubject = searchParams.get("subject") ?? undefined;
   const [status, setStatus] = useState<{
     kind: "idle" | "loading" | "success" | "error";
     message?: string;

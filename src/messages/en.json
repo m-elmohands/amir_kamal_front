@@ -6,7 +6,8 @@
     "requestQuote": "Request a quote",
     "viewDetails": "View details",
     "allProducts": "All products",
-    "axisSelect": "Axis Select"
+    "axisSelect": "Axis Select",
+    "dataRefreshFailed": "Live data could not be refreshed. Showing the last available version."
   },
   "header": {
     "tagline": "Industrial tooling, delivered with confidence.",
@@ -65,7 +66,8 @@
     "search": "Search",
     "found": "products found",
     "emptyTitle": "No matching products",
-    "emptyText": "Try a broader search or clear the category filter."
+    "emptyText": "Try a broader search or clear the category filter.",
+    "refreshFailure": "Products could not be refreshed. Showing the last available catalog."
   },
   "product": {
     "quote": "Request a quote",

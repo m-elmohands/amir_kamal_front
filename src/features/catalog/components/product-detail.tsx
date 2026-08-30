@@ -1,22 +1,43 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { getProduct } from "@/services/api";
 import { Arrow } from "@/components/icons";
-import { getCurrentLocale, getMessages, localizedPath } from "@/i18n/messages";
-export async function generateMetadata({
-  params,
+import type { Locale, Messages } from "@/i18n/messages";
+import { localizedPath } from "@/i18n/messages";
+import { fetchLiveProduct } from "@/services/api";
+import type { Product } from "@/types/catalog";
+
+export function ProductDetail({
+  initialProduct,
+  locale,
+  messages: t,
 }: {
-  params: Promise<{ slug: string }>;
-}): Promise<Metadata> {
-  const product = await getProduct((await params).slug);
-  return { title: product?.name ?? "Product", description: product?.summary };
-}
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-  const locale = await getCurrentLocale();
-  const t = getMessages(locale);
-  const product = await getProduct((await params).slug, locale);
-  if (!product) notFound();
+  initialProduct: Product;
+  locale: Locale;
+  messages: Messages;
+}) {
+  const [product, setProduct] = useState(initialProduct);
+  const [refreshFailed, setRefreshFailed] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+
+    fetchLiveProduct(initialProduct.slug, locale)
+      .then((latestProduct) => {
+        if (!active) return;
+        setProduct(latestProduct);
+        setRefreshFailed(false);
+      })
+      .catch(() => {
+        if (active) setRefreshFailed(true);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [initialProduct.slug, locale]);
+
   return (
     <>
       <section className="section">
@@ -30,6 +51,9 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <span>{product.category.name}</span>
           </div>
           <div>
+            {refreshFailed ? (
+              <div className="notice error-notice">{t.catalog.refreshFailure}</div>
+            ) : null}
             <div className="eyebrow">
               {product.brand?.name ?? t.common.axisSelect} · {product.sku}
             </div>
