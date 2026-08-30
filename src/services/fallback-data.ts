@@ -1,0 +1,118 @@
+import type { Category, Product } from "@/types/catalog";
+export const categories: Category[] = [
+  {
+    name: "Workholding",
+    slug: "workholding",
+    description: "Chucks, collets, vises, and fixtures engineered for repeatable grip.",
+  },
+  {
+    name: "Cutting Tools",
+    slug: "cutting-tools",
+    description: "Indexable tooling and solid carbide cutters for demanding production.",
+  },
+  {
+    name: "Lathe Tooling",
+    slug: "lathe-tooling",
+    description: "Turning, boring, threading, and parting systems for every lathe.",
+  },
+  {
+    name: "Measuring",
+    slug: "measuring",
+    description: "Reliable metrology tools for inspection on the floor and in the lab.",
+  },
+];
+export const products: Product[] = [
+  {
+    id: 1,
+    name: "Precision 3-Jaw Lathe Chuck",
+    slug: "precision-3-jaw-lathe-chuck",
+    sku: "WH-3J-200",
+    summary: "Self-centering cast steel chuck with hardened, reversible jaws.",
+    description:
+      "A dependable workshop chuck designed for accurate, repeatable clamping across general turning operations. The balanced body and hardened scroll deliver smooth performance at production speeds.",
+    specifications: {
+      Diameter: "200 mm",
+      Mount: "D1-6 Camlock",
+      Accuracy: "≤ 0.03 mm",
+      Material: "Cast steel",
+    },
+    is_featured: true,
+    category: { name: "Workholding", slug: "workholding" },
+    brand: { name: "Vertex", slug: "vertex" },
+  },
+  {
+    id: 2,
+    name: "Modular Boring Bar Set",
+    slug: "modular-boring-bar-set",
+    sku: "LT-MB-12",
+    summary: "Anti-vibration bars and indexable heads for deep internal machining.",
+    description:
+      "A versatile twelve-piece boring system with through-coolant delivery and interchangeable heads. Built to reduce chatter and improve surface finish in deep bores.",
+    specifications: {
+      Shanks: "10–25 mm",
+      Reach: "Up to 8×D",
+      Coolant: "Through-tool",
+      Pieces: "12",
+    },
+    is_featured: true,
+    category: { name: "Lathe Tooling", slug: "lathe-tooling" },
+    brand: { name: "Sandvik", slug: "sandvik" },
+  },
+  {
+    id: 3,
+    name: "ER32 Collet Precision Set",
+    slug: "er32-collet-precision-set",
+    sku: "WH-ER32-18",
+    summary: "Eighteen-piece DIN 6499 collet set supplied in a fitted case.",
+    description:
+      "High-accuracy spring collets for milling, drilling, reaming, and light tapping. Each collet is individually inspected for runout and long-term repeatability.",
+    specifications: { Range: "3–20 mm", Runout: "≤ 0.015 mm", Standard: "DIN 6499", Pieces: "18" },
+    is_featured: true,
+    category: { name: "Workholding", slug: "workholding" },
+    brand: { name: "Guhring", slug: "guhring" },
+  },
+  {
+    id: 4,
+    name: "Digital Outside Micrometer",
+    slug: "digital-outside-micrometer",
+    sku: "MT-DM-025",
+    summary: "IP65 coolant-proof micrometer with carbide measuring faces.",
+    description:
+      "Shop-floor digital micrometer combining fast measurement with reliable environmental protection. Large digits and ratchet thimble support confident inspection.",
+    specifications: { Range: "0–25 mm", Resolution: "0.001 mm", Protection: "IP65", Output: "SPC" },
+    is_featured: false,
+    category: { name: "Measuring", slug: "measuring" },
+    brand: { name: "Mitutoyo", slug: "mitutoyo" },
+  },
+  {
+    id: 5,
+    name: "Indexable Face Mill 63",
+    slug: "indexable-face-mill-63",
+    sku: "CT-FM-063",
+    summary: "High-feed 45° face mill for stable, productive shoulder machining.",
+    description:
+      "Positive cutting geometry lowers spindle load while delivering excellent surface finish in steel, stainless steel, and cast iron.",
+    specifications: { Diameter: "63 mm", Inserts: "5", LeadAngle: "45°", Arbor: "22 mm" },
+    is_featured: true,
+    category: { name: "Cutting Tools", slug: "cutting-tools" },
+    brand: { name: "Kennametal", slug: "kennametal" },
+  },
+  {
+    id: 6,
+    name: "Quick Change Tool Post",
+    slug: "quick-change-tool-post",
+    sku: "LT-QC-B250",
+    summary: "Wedge-style tool post system for rigid, repeatable tool changes.",
+    description:
+      "A hardened and ground quick-change system that minimizes setup time while preserving center height and tool position between operations.",
+    specifications: {
+      Series: "B / 250",
+      Swing: "300–500 mm",
+      Holders: "5 included",
+      Mechanism: "Wedge lock",
+    },
+    is_featured: false,
+    category: { name: "Lathe Tooling", slug: "lathe-tooling" },
+    brand: { name: "Aloris", slug: "aloris" },
+  },
+];

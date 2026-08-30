@@ -1,0 +1,125 @@
+{
+  "common": {
+    "products": "Products",
+    "about": "About",
+    "contact": "Contact",
+    "requestQuote": "Request a quote",
+    "viewDetails": "View details",
+    "allProducts": "All products",
+    "axisSelect": "Axis Select"
+  },
+  "header": {
+    "tagline": "Industrial tooling, delivered with confidence.",
+    "talk": "Talk to an expert:",
+    "phone": "+20 100 000 0000"
+  },
+  "footer": {
+    "tagline": "Precision supplies for the people who make things that matter.",
+    "explore": "Explore",
+    "company": "Our company",
+    "email": "sales@axisindustrial.com",
+    "location": "Cairo, Egypt",
+    "copyright": "Axis Industrial. Built for better machining."
+  },
+  "home": {
+    "eyebrow": "CNC & lathe supplies",
+    "titleA": "Precision",
+    "titleB": "starts",
+    "titleAccent": "here.",
+    "intro": "Production-grade tooling, workholding, and measurement equipment—selected by machinists, supported by people who understand the shop floor.",
+    "browse": "Browse products",
+    "expert": "Talk to an expert",
+    "heroBadge": "BUILT FOR THE SHOP FLOOR",
+    "trust": [
+      { "title": "Machinist selected", "text": "Proven tooling" },
+      { "title": "Quality assured", "text": "Trusted manufacturers" },
+      { "title": "Reliable supply", "text": "Fast regional delivery" },
+      { "title": "Expert support", "text": "Real application advice" }
+    ],
+    "categoryEyebrow": "Shop by application",
+    "categoryTitle": "Everything your machine needs.",
+    "categoryIntro": "From the spindle to final inspection, find dependable supplies for CNC mills, lathes, and manual machines.",
+    "featuredEyebrow": "Featured tooling",
+    "featuredTitle": "Shop-floor favorites.",
+    "viewCatalog": "View full catalog",
+    "partnerEyebrow": "More than a supplier",
+    "partnerTitle": "Partners in productivity.",
+    "partnerText": "Good tooling is only the beginning. We help workshops reduce downtime, improve tool life, and choose the right setup the first time.",
+    "howWeWork": "How we work",
+    "stats": [
+      { "value": "15+", "label": "Years of industry knowledge" },
+      { "value": "40+", "label": "Trusted tooling brands" },
+      { "value": "1K+", "label": "Catalog items available" },
+      { "value": "24h", "label": "Typical quote response" }
+    ],
+    "ctaTitle": "Need the right tool for the job?",
+    "ctaText": "Share your application. Our team will help you narrow it down."
+  },
+  "catalog": {
+    "eyebrow": "Product catalog",
+    "title": "Tools for serious work.",
+    "intro": "Explore production-ready workholding, cutting tools, lathe accessories, and inspection equipment.",
+    "searchLabel": "Search products",
+    "searchPlaceholder": "Search by product name, SKU, or application…",
+    "allCategories": "All categories",
+    "search": "Search",
+    "found": "products found",
+    "emptyTitle": "No matching products",
+    "emptyText": "Try a broader search or clear the category filter."
+  },
+  "product": {
+    "quote": "Request a quote",
+    "fitTitle": "Not sure this is the right fit?",
+    "fitText": "Tell us about your machine, material, and operation.",
+    "askExpert": "Ask an application expert"
+  },
+  "contact": {
+    "eyebrow": "Contact & quotes",
+    "title": "Let’s solve the setup.",
+    "intro": "Tell us what you are machining. An application-minded member of our team will respond within one business day.",
+    "sideTitle": "Talk to a real expert.",
+    "sideText": "For urgent availability checks, call us directly. For application questions and quotations, use the form so we can prepare a useful response.",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Hours",
+    "hoursValue": "Sunday–Thursday, 8:30–17:00",
+    "name": "Your name",
+    "company": "Company",
+    "emailAddress": "Email address",
+    "phoneNumber": "Phone number",
+    "subject": "Subject",
+    "help": "How can we help?",
+    "messagePlaceholder": "Tell us about the machine, material, operation, or part number…",
+    "send": "Send inquiry",
+    "sending": "Sending…",
+    "failure": "We could not send your inquiry. Please email or call us directly."
+  },
+  "aboutPage": {
+    "eyebrow": "Our company",
+    "title": "Built around better machining.",
+    "intro": "We connect workshops with reliable industrial tooling and the practical knowledge to use it well.",
+    "drive": "What drives us",
+    "adviceTitle": "Tooling advice without the guesswork.",
+    "p1": "Axis Industrial was founded on a simple idea: machinists should be able to speak with suppliers who understand feeds, speeds, rigidity, runout, and the cost of a stopped spindle.",
+    "p2": "We curate trusted products, answer application questions honestly, and stay accountable from quotation through delivery.",
+    "quote": "“The right tool is the one that makes the whole process more predictable.”",
+    "philosophy": "Our product selection philosophy",
+    "principles": "Our principles",
+    "practical": "Practical by default.",
+    "items": [
+      {
+        "title": "Application first",
+        "text": "We start with the material, machine, operation, and outcome—not a part number."
+      },
+      {
+        "title": "Quality that earns its place",
+        "text": "Every line in our catalog must deliver credible value on the shop floor."
+      },
+      {
+        "title": "Support after delivery",
+        "text": "Our relationship continues through setup, troubleshooting, and repeat supply."
+      }
+    ],
+    "work": "Work with us"
+  }
+}
