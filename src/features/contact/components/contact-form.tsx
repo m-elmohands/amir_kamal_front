@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { sendInquiry } from "@/services/api";
+import { ApiError, sendInquiry } from "@/services/api";
 import type { Messages } from "@/i18n/messages";
 export function ContactForm({ messages: t }: { messages: Messages["contact"] }) {
   const searchParams = useSearchParams();
@@ -29,8 +29,14 @@ export function ContactForm({ messages: t }: { messages: Messages["contact"] }) 
       });
       setStatus({ kind: "success", message });
       event.currentTarget.reset();
-    } catch {
-      setStatus({ kind: "error", message: t.failure });
+    } catch (error) {
+      const message =
+        error instanceof ApiError && error.status === 422
+          ? t.validationFailure
+          : error instanceof ApiError && error.status === 429
+            ? t.rateLimitFailure
+            : t.failure;
+      setStatus({ kind: "error", message });
     }
   }
   return (

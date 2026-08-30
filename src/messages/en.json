@@ -94,7 +94,9 @@
     "messagePlaceholder": "Tell us about the machine, material, operation, or part number…",
     "send": "Send inquiry",
     "sending": "Sending…",
-    "failure": "We could not send your inquiry. Please email or call us directly."
+    "failure": "We could not send your inquiry. Please email or call us directly.",
+    "validationFailure": "Please review the form values and try again.",
+    "rateLimitFailure": "Too many inquiries were sent recently. Please wait one minute and try again."
   },
   "aboutPage": {
     "eyebrow": "Our company",

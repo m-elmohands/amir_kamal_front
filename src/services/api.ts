@@ -3,6 +3,18 @@ import { categories as fallbackCategories, products as fallbackProducts } from "
 import type { Category, InquiryPayload, PaginatedProducts, Product } from "@/types/catalog";
 import type { SiteSettings } from "@/types/settings";
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000/api/v1";
+
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    public readonly status: number,
+    public readonly errors: Record<string, string[]> = {},
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
+
 async function request<T>(path: string, init?: RequestInit, retries = 1): Promise<T> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 6000);
@@ -10,11 +22,23 @@ async function request<T>(path: string, init?: RequestInit, retries = 1): Promis
     const response = await fetch(`${API_URL}${path}`, {
       ...init,
       signal: controller.signal,
-      headers: { "Content-Type": "application/json", ...init?.headers },
+      headers: { Accept: "application/json", "Content-Type": "application/json", ...init?.headers },
       next: init?.method || init?.cache === "no-store" ? undefined : { revalidate: 60 },
     });
-    if (!response.ok) throw new Error(`Request failed (${response.status})`);
-    return (await response.json()) as T;
+    const payload = (await response.json().catch(() => null)) as
+      (T & { message?: string; errors?: Record<string, string[]> }) | null;
+
+    if (!response.ok) {
+      throw new ApiError(
+        payload?.message ?? `Request failed (${response.status})`,
+        response.status,
+        payload?.errors,
+      );
+    }
+
+    if (!payload) throw new ApiError("The API returned an empty response.", response.status);
+
+    return payload;
   } catch (error) {
     if (retries > 0) return request<T>(path, init, retries - 1);
     throw error;
@@ -115,12 +139,27 @@ export async function getCategories(locale = "en"): Promise<Category[]> {
   }
 }
 export async function sendInquiry(payload: InquiryPayload): Promise<string> {
-  const result = await request<{ message: string }>(
-    "/inquiries",
-    { method: "POST", body: JSON.stringify(payload) },
-    0,
-  );
-  return result.message;
+  try {
+    const result = await request<{ message: string }>(
+      "/inquiries",
+      { method: "POST", body: JSON.stringify(payload) },
+      0,
+    );
+    return result.message;
+  } catch (error) {
+    if (error instanceof ApiError && error.status === 422 && error.errors.product_id) {
+      const generalInquiry = { ...payload };
+      delete generalInquiry.product_id;
+      const result = await request<{ message: string }>(
+        "/inquiries",
+        { method: "POST", body: JSON.stringify(generalInquiry) },
+        0,
+      );
+      return result.message;
+    }
+
+    throw error;
+  }
 }
 
 const fallbackSettings: Record<"en" | "ar", SiteSettings> = {
